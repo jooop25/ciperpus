@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login | HKBPCipcil</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo base_url(); ?>template/backend/sbadmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Isi CSS -->
+    <link href="<?php echo base_url(); ?>template/backend/sbadmin/vendor/bootstrap/css/custom.css" rel="stylesheet">
+
+    <!-- Custom Login CSS -->
+    <link href="<?php echo base_url(); ?>template/backend/sbadmin/vendor/bootstrap/css/customlogin.css" rel="stylesheet"> 
+
+    <!-- MetisMenu CSS -->
+    <link href="<?php echo base_url(); ?>template/backend/sbadmin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<?php echo base_url(); ?>template/backend/sbadmin/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo base_url(); ?>template/backend/sbadmin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .custom-nav {
+            margin: 0;
+            padding: 20px 0 0 10px;
+            background: none;
+            border: none;
+        }
+        .custom-nav > li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .custom-nav > li > a {
+            color: #337ab7;
+            background: none;
+            border-radius: 0;
+            font-size: 20px;
+            padding: 8px 18px;
+            transition: background 0.2s;
+        }
+        .custom-nav > li.active > a,
+        .custom-nav > li > a:focus {
+            background: #f5f5f5;
+            color: #23527c;
+            font-weight: bold;
+        }
+        .custom-nav > li > a:hover {
+            background: #eaeaea;
+            color: #23527c;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid bg-primary text-white p-3">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-12 text-center">
+                <h3>Perpustakaan HKBP Cipayung Cilangkap</h3>
+                <p>Gg. Sejuk No.38, RT.7/RW.4, Cipayung, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13840</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-default">
+        <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo site_url('');?>"><strong>HKBPCipcil</strong></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="<?php echo site_url('login');?>"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+             <!--   <li><a href="<?php echo site_url('login/view_anggota');?>"><i class="glyphicon glyphicon-user"></i> Anggota</a></li> -->
+                <li class="active"><a href="<?php echo site_url('login/view_buku');?>"><i class="glyphicon glyphicon-book"></i> Buku</a></li>
+            </ul>
+            <div class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-right" role="search" action="<?php echo site_url('login/search_buku');?>" method="post">
+                    <div class="form-group">
+                        <input type="text" name="cari_buku" class="form-control" placeholder="Search Book">
+                    </div>
+                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Cari</button>
+                </form>
+            </div>
+        </div><!--/.nav-collapse -->
+        </div>
+    </div>
+    <!-- end navbar -->
+    
+    <!-- line-height -->
+    <br /><br />
+
+
+
+
+<div class="container">
+<div class="row">
+    <div class="col-md-8 ">
+        <h4> <?php echo $title; ?></h4><hr class="line-title"> 
+        <?php 
+        if($buku->num_rows() > 0) {
+        ?>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>No.</td>
+                    <td>Gambar</td>
+                    <td>Kode Buku</td>
+                    <td>Judul Buku</td>
+                    <td>Pengarang</td>
+                    <td>Penerbit</td>
+                    <td>Klasifikasi</td>
+                </tr>
+            </thead>
+            <?php 
+                $no=0; 
+                foreach($buku->result() as $row):
+                $no++;
+            ?>
+            <tr>
+                <td><?php echo $no;?></td>
+                <td><?php if($row->image != "") { ?>
+                    <img src="<?php echo base_url('assets/img/buku/'.$row->image);?>" width="100px" height="100px">
+                <?php }else{ ?>
+                    <img src="<?php echo base_url('assets/img/buku/book-default.jpg'); ?>" width="100px" height="100px">
+                <?php } ?> 
+                </td>
+                <td><?php echo $row->kode_buku;?></td>
+                <td><?php echo $row->judul;?></td>
+                <td><?php echo $row->pengarang;?></td>
+                <td><?php echo $row->penerbit;?></td>
+                <td><?php echo $row->klasifikasi;?></td>
+            </tr>
+            <?php endforeach;?>
+        </table>
+        <?php
+echo "$pagination";
+
+        }else{
+            echo "Maaf data belum ada";    
+        }
+        ?>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-lock"></span> <strong>LOGIN</strong>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" action="<?php echo site_url('login'); ?>" method="post">
+                    <?php echo $this->session->flashdata('message'); ?>
+                    <div class="form-group">
+                        <p class="col-sm-3">Username </p>
+                        <div class="col-sm-9">
+                           <?php echo form_error('username'); ?>
+                            <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="Username" value="<?php echo set_value('username'); ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p class="col-sm-3">Password </p>
+                        <div class="col-sm-9">
+                            <?php echo form_error('password'); ?>
+                            <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" value="<?php echo set_value('password'); ?>">
+                        </div>
+                    </div>
+                    <div class="form-group last">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" name="proses" class="btn btn-success btn-sm">Sign in</button>
+                            <button type="reset" class="btn btn-default btn-sm">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- jQuery -->
+    <script src="<?php echo base_url(); ?>template/backend/sbadmin/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?php echo base_url(); ?>template/backend/sbadmin/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<?php echo base_url(); ?>template/backend/sbadmin/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<?php echo base_url(); ?>template/backend/sbadmin/dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
